@@ -1,8 +1,35 @@
 import { FC } from 'react';
-import { LinksFunction } from '@remix-run/node';
+import { LinksFunction, V2_MetaFunction as MetaFunction } from '@remix-run/node';
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
 import tailwind from 'tailwindcss/tailwind.css';
 import Fathom from './components/Fathom';
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: 'Full Snack Developer for Hire | Josh Manders' },
+    {
+      name: 'description',
+      content:
+        'Josh is a full snack developer specializing in modern web technologies such as Node.js, React.js, React Native, Next.js, Remix.run, Prisma, Tailwind CSS, PostgreSQL, Docker, Kubernetes and many other fantastic tools.',
+    },
+    { name: 'twitter:card', content: 'summary' },
+    { name: 'twitter:title', content: 'Full Snack Developer for Hire | Josh Manders' },
+    {
+      name: 'twitter:description',
+      content:
+        'Josh is a full snack developer specializing in modern web technologies such as Node.js, React.js, React Native, Next.js, Remix.run, Prisma, Tailwind CSS, PostgreSQL, Docker, Kubernetes and many other fantastic tools.',
+    },
+    { name: 'twitter:creator', content: '@joshmanders' },
+    { name: 'twitter:image:src', content: 'https://full.snack.dev/og.png' },
+    { property: 'og:title', content: 'Full Snack Developer for Hire | Josh Manders' },
+    {
+      property: 'og:description',
+      content:
+        'Josh is a full snack developer specializing in modern web technologies such as Node.js, React.js, React Native, Next.js, Remix.run, Prisma, Tailwind CSS, PostgreSQL, Docker, Kubernetes and many other fantastic tools.',
+    },
+    { property: 'og:image', content: 'https://full.snack.dev/og.png' },
+  ];
+};
 
 export const links: LinksFunction = () => {
   return [

@@ -1,33 +1,8 @@
 import { FC, Fragment } from 'react';
-import { V2_MetaFunction as MetaFunction } from '@remix-run/react';
+import { DataFunctionArgs, json } from '@remix-run/node';
+import { Form, useActionData } from '@remix-run/react';
 import { Testimonial } from '@app/components/Testimonial';
-
-export const meta: MetaFunction = () => {
-  return [
-    { title: 'Full Snack Developer for Hire | Josh Manders' },
-    {
-      name: 'description',
-      content:
-        'Josh is a full snack developer specializing in modern web technologies such as Node.js, React.js, React Native, Next.js, Remix.run, Prisma, Tailwind CSS, PostgreSQL, Docker, Kubernetes and many other fantastic tools.',
-    },
-    { name: 'twitter:card', content: 'summary' },
-    { name: 'twitter:title', content: 'Full Snack Developer for Hire | Josh Manders' },
-    {
-      name: 'twitter:description',
-      content:
-        'Josh is a full snack developer specializing in modern web technologies such as Node.js, React.js, React Native, Next.js, Remix.run, Prisma, Tailwind CSS, PostgreSQL, Docker, Kubernetes and many other fantastic tools.',
-    },
-    { name: 'twitter:creator', content: '@joshmanders' },
-    { name: 'twitter:image:src', content: 'https://full.snack.dev/og.png' },
-    { property: 'og:title', content: 'Full Snack Developer for Hire | Josh Manders' },
-    {
-      property: 'og:description',
-      content:
-        'Josh is a full snack developer specializing in modern web technologies such as Node.js, React.js, React Native, Next.js, Remix.run, Prisma, Tailwind CSS, PostgreSQL, Docker, Kubernetes and many other fantastic tools.',
-    },
-    { property: 'og:image', content: 'https://full.snack.dev/og.png' },
-  ];
-};
+import { sendMail } from '@app/lib/mailer.server';
 
 const testimonials = [
   {
@@ -46,7 +21,25 @@ const testimonials = [
   },
 ];
 
+export const action = async ({ request }: DataFunctionArgs) => {
+  const form = await request.formData();
+  const name = form.get('name') as string;
+  const email = form.get('email') as string;
+  const message = form.get('message') as string;
+
+  await sendMail({
+    from: `${name} <${email}>`,
+    to: 'josh@joshmanders.com',
+    subject: `[full.snack.dev] ${name} <> Josh Manders`,
+    text: message,
+  });
+
+  return json({ message: `Thanks for reaching out, ${name}!` });
+};
+
 const ForHirePage: FC = () => {
+  const data = useActionData<typeof action>();
+
   return (
     <Fragment>
       <div className="bg-primary-200 shadow-lg">
@@ -171,7 +164,7 @@ const ForHirePage: FC = () => {
         <h3 className="text-xl md:text-3xl font-bold pb-6">
           <span className="block md:inline-block pb-1 md:pr-6 border-b-2 border-gray-800">Get in touch with me</span>
         </h3>
-        <form action="/web/20200212212134/http://full.snack.dev/" method="post">
+        <Form method="post">
           <div className="flex flex-col md:flex-row mb-4">
             <div className="md:w-1/2 md:pr-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-gray-600 text-xs font-bold mb-2" htmlFor="name">
@@ -214,14 +207,20 @@ const ForHirePage: FC = () => {
             ></textarea>
           </div>
           <div className="w-full flex justify-end">
-            <button
-              type="submit"
-              className="w-full md:w-auto bg-primary-500 hover:bg-primary-600 text-primary-200 uppercase font-bold rounded px-4 py-2"
-            >
-              Send Inquiry
-            </button>
+            {data?.message ? (
+              <span className="w-full md:w-auto cursor-pointer bg-primary-500 text-primary-200 uppercase font-bold rounded px-4 py-2">
+                {data.message}
+              </span>
+            ) : (
+              <button
+                type="submit"
+                className="w-full md:w-auto bg-primary-500 hover:bg-primary-600 text-primary-200 uppercase font-bold rounded px-4 py-2"
+              >
+                Send Inquiry
+              </button>
+            )}
           </div>
-        </form>
+        </Form>
       </div>
     </Fragment>
   );
