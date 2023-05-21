@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { LinksFunction } from '@remix-run/node';
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
 import tailwind from 'tailwindcss/tailwind.css';
+import Fathom from './components/Fathom';
 
 export const links: LinksFunction = () => {
   return [
@@ -25,6 +26,7 @@ const App: FC = () => {
         <Links />
       </head>
       <body className="w-screen h-full border-t-8 border-primary-500 text-gray-800 font-sans">
+        <Fathom siteId="YKHDMTUX" domains={['full.snack.dev']} />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
