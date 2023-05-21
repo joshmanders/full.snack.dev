@@ -1,5 +1,33 @@
 import { FC, Fragment } from 'react';
+import { V2_MetaFunction as MetaFunction } from '@remix-run/react';
 import { Testimonial } from '@app/components/Testimonial';
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: 'Full Snack Developer for Hire | Josh Manders' },
+    {
+      name: 'description',
+      content:
+        'Josh is a full snack developer specializing in modern web technologies such as Node.js, React.js, React Native, Next.js, Remix.run, Prisma, Tailwind CSS, PostgreSQL, Docker, Kubernetes and many other fantastic tools.',
+    },
+    { name: 'twitter:card', content: 'summary' },
+    { name: 'twitter:title', content: 'Full Snack Developer for Hire | Josh Manders' },
+    {
+      name: 'twitter:description',
+      content:
+        'Josh is a full snack developer specializing in modern web technologies such as Node.js, React.js, React Native, Next.js, Remix.run, Prisma, Tailwind CSS, PostgreSQL, Docker, Kubernetes and many other fantastic tools.',
+    },
+    { name: 'twitter:creator', content: '@joshmanders' },
+    { name: 'twitter:image:src', content: 'https://full.snack.dev/og.png' },
+    { property: 'og:title', content: 'Full Snack Developer for Hire | Josh Manders' },
+    {
+      property: 'og:description',
+      content:
+        'Josh is a full snack developer specializing in modern web technologies such as Node.js, React.js, React Native, Next.js, Remix.run, Prisma, Tailwind CSS, PostgreSQL, Docker, Kubernetes and many other fantastic tools.',
+    },
+    { property: 'og:image', content: 'https://full.snack.dev/og.png' },
+  ];
+};
 
 const testimonials = [
   {
@@ -41,7 +69,7 @@ const ForHirePage: FC = () => {
               and I want to work with you!
             </h1>
             <h2 className="md:text-4xl">
-              I'm a <span className="text-primary-500">full snack developer</span> who specializes in modern JavaScript
+              I'm a <span className="text-primary-500">full snack developer</span> who specializes in modern web
               technologies such as <span className="border-b-2 border-primary-500 font-semibold">Node.js</span>,{' '}
               <span className="border-b-2 border-primary-500 font-semibold">React.js</span>,{' '}
               <span className="border-b-2 border-primary-500 font-semibold">React Native</span>,{' '}
