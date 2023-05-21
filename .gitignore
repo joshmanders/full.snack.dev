@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+
+# misc
+.DS_Store
+*.pem
+.idea
+
+# debug
+npm-debug.log*
+
+# local env files
+.env
+
+# Dist/build directories
+dist/
+build/
+
+# Manifest for infra
+manifest.yaml
