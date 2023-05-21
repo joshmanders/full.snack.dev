@@ -18,7 +18,7 @@ ENV GIT_REV ${GIT_REV}
 
 COPY . .
 
-RUN npm ci
+RUN npm install
 RUN npm run build
 
 # Run
