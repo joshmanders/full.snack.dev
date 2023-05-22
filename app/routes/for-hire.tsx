@@ -47,7 +47,7 @@ const ForHirePage: FC = () => {
           <img
             src="https://github.com/joshmanders.png"
             alt="It's Josh!"
-            className="rounded-lg mx-auto w-24 h-24 md:w-56 md:h-56 mb-4 md:mr-4 md:mb-0 shadow-lg"
+            className="rounded-lg mx-auto w-auto h-auto md:w-56 md:h-56 mb-4 md:mr-4 md:mb-0 shadow-lg"
           />
           <div className="md:flex-1">
             <h1 className="font-bold md:text-5xl md:mb-3">
